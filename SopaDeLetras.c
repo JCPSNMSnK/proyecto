@@ -14,9 +14,11 @@ int vectorRespuestasEncontradas[MAX] = {0, 0, 0, 0, 0, 0}; //cuando una palabra 
 
 tListaPuntajes *listaPuntajes;
 FILE * vf_puntajes;
+tArbolPuntaje *arbolPuntajes;
 
 void sopaDeLetras(){ //principal donde voy citando 
 	inicializarLista();
+	crearArbolVacio(arbolPuntajes);
     do{
         system("cls");
         printf("¡BIENVENIDO A LA SOPA DE LETRAS!\n");
@@ -42,6 +44,7 @@ void sopaDeLetras(){ //principal donde voy citando
                 printf("Juego acabado!\n");
                 printf("\nTus puntos: %i\n", puntos);
 		insertarPuntaje(nombre, puntos);
+		insertarPuntajeArbol(&(arbolPuntajes), nombre, puntos);
 		generarRegistro(); //así guardo los datos historicos en un archivo binario para imprimirlos
                 system("pause");
                     
@@ -55,16 +58,8 @@ void sopaDeLetras(){ //principal donde voy citando
                 //Puntos aca deberia imprimir los datos y el puntaje, ejemplo imprimirArbolDeBusqueda();
                 system("cls");
                 printf("\t\tCLASIFICACION DE PUNTAJES: \n");
-            	if(puntos!=0){
-            		
-                    printf("El ultimo puntaje grabado fue de: %i\n", puntos);
-                    printf("Vas a poder superarlo?\n");
-                    system("pause");
-                    
-                }else{
-                    printf("No hay puntajes grabados. Juega una partida para grabarlo.\n");
-                    system("pause");
-                }
+		printf("Nombre: || Puntajes:  \n");
+            	recorrrerInOrden(arbolPuntajes);
             break;
         }
     }while(op!=4);
@@ -222,4 +217,37 @@ void grabarRegistroPuntaje(tListaPuntajes *pListaPuntajes){
 
 void finalizarProceso(){
 	fclose(vf_puntajes);
+}
+
+void crearArbolVacio (tArbolPuntaje *pArbolPuntajes ){
+	pArbolPuntajes = NULL;
+	printf("\nArbol vacío creado!\n");
+}
+
+bool arbolVacio(tArbolPuntaje *pArbolPuntajes  ){
+	return pArbolPuntajes == NULL;
+}
+
+
+void insertarPuntajeArbol (tArbolPuntaje **pArbolPuntajes, tString pNombre, int pPuntaje){
+	if(arbolVacio(*pArbolPuntajes)){
+		insertarPuntajeArbol (&((*pArbolPuntajes)->hijoIzq), pNombre, pPuntaje);
+		printf("\nPuntaje insertado en en hijo Izq");
+	}else{
+		if(pPuntaje > (*pArbolPuntajes)->datoArPunt.puntaje){
+			insertarPuntajeArbol (&((*pArbolPuntajes)->hijoDer), pNombre, pPuntaje);
+			printf("\nPuntaje insertado en en hijo Der");
+		}else{
+			printf("\nEl arbol no guardará este puntaje repetido!\n");
+		}
+	}
+}
+
+void recorrrerInOrden(tArbolPuntaje *pArbolPuntajes){
+	if(pArbolPuntajes != NULL){
+		recorrerInOrden(pArbolPuntajes->hijoIzq);
+		printf("\n %s || %d \n", pArbolPuntajes->datoArPunt.nombreJugador, pArbolPuntajes->datoArPunt.puntaje);
+	}else{
+		printf("\nNo hay ningun puntaje insertado en el arbol para mostrar!");
+	}
 }
