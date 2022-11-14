@@ -38,6 +38,7 @@ void sopaDeLetras(){ //principal donde voy citando
                 printf("Juego acabado!\n");
                 printf("\nTus puntos: %i\n", puntos);
 		//generarNodo(nombre, puntos); void generarNodo(tString , int );
+		//generarRegistro(nombre, puntos); así guardo los datos historicos en un archivo binario para imprimirlos
                 system("pause");
                     
             break;
