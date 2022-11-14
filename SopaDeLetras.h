@@ -29,5 +29,9 @@ void insertarPrimerPuntaje (tString , int );
 void insertarPuntajeAdelante(tString, int );
 void insertarPuntaje(tString , int );
 
+void generarRegistro();
+void iniciaProceso();
+void grabarRegistroPuntaje(tListaPuntajes * );
+void finalizarProceso();
 
 #endif
