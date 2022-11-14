@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include "SopaDeLetras.h"
+#include "SopaDeLetras.h" //declarar las struct de listaEnlazada y Arbol directamente aqui, simplifico
 
 int op, puntos, oportunidades;
 
@@ -47,7 +47,7 @@ void sopaDeLetras(){ //principal donde voy citando
                 instrucciones();
             break;
             case 3:
-                //Puntos aca deberia imprimir los datos y el puntaje, ejemplo imprimirNodo();
+                //Puntos aca deberia imprimir los datos y el puntaje, ejemplo imprimirArbolDeBusqueda();
                 system("cls");
                 printf("\t\tCLASIFICACION DE PUNTAJES: \n");
             	if(puntos!=0){
