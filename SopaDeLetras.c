@@ -13,6 +13,7 @@ tVectorStrings vectorRespuestas = {"analisis", "diseno", "codificacion", "compil
 int vectorRespuestasEncontradas[MAX] = {0, 0, 0, 0, 0, 0}; //cuando una palabra sea encontrada, meto 1 como encontrado, 0 no encontrado
 
 tListaPuntajes *listaPuntajes;
+FILE * vf_puntajes;
 
 void sopaDeLetras(){ //principal donde voy citando 
 	inicializarLista();
@@ -41,7 +42,7 @@ void sopaDeLetras(){ //principal donde voy citando
                 printf("Juego acabado!\n");
                 printf("\nTus puntos: %i\n", puntos);
 		insertarPuntaje(nombre, puntos);
-		//generarRegistro(nombre, puntos); así guardo los datos historicos en un archivo binario para imprimirlos
+		generarRegistro(); //así guardo los datos historicos en un archivo binario para imprimirlos
                 system("pause");
                     
             break;
@@ -199,4 +200,26 @@ void insertarPuntaje(tString pNombre, int pPuntaje){
 	}else{
 		insertarPuntajeAdelante(pNombre, pPuntaje);
 	}
+}
+
+void generarRegistro(){
+	iniciarProceso();
+	grabarRegistroPuntaje();
+	finalizarProceso();
+}
+
+void iniciarProceso(){
+	//se abre un archivo nuevo y se asigna a la variable archivo
+	vf_puntajes = fopen("Puntajes.dat", "wb");
+	printf("\nArchivo de puntajes abierto!\n);
+}
+
+void grabarRegistroPuntaje(tListaPuntajes *pListaPuntajes){
+	//se graba 1 registro en el archivo puntajes
+	fwrite( &(pListaPuntajes->infoJugador), sizeof(tDato), 1, vf_puntajes);
+	printf("\nPuntaje insertado en el archivo!\n");
+}
+
+void finalizarProceso(){
+	fclose(vf_puntajes);
 }
