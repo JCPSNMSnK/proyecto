@@ -19,7 +19,7 @@ int main(){
 		
 		switch(opMain){
 			case 1:
-				printf("Hola");
+				printf("Hola hice un cambio");
 				system("pause");
 				break;
 			case 2:
