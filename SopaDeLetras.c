@@ -12,7 +12,10 @@ tString palabraIn, nombre;
 tVectorStrings vectorRespuestas = {"analisis", "diseno", "codificacion", "compilacion", "mantenimiento", "documentacion"};
 int vectorRespuestasEncontradas[MAX] = {0, 0, 0, 0, 0, 0}; //cuando una palabra sea encontrada, meto 1 como encontrado, 0 no encontrado
 
+tListaPuntajes *listaPuntajes;
+
 void sopaDeLetras(){ //principal donde voy citando 
+	inicializarLista();
     do{
         system("cls");
         printf("¡BIENVENIDO A LA SOPA DE LETRAS!\n");
@@ -37,7 +40,7 @@ void sopaDeLetras(){ //principal donde voy citando
                 system("cls");
                 printf("Juego acabado!\n");
                 printf("\nTus puntos: %i\n", puntos);
-		//generarNodo(nombre, puntos); void generarNodo(tString , int );
+		insertarPuntaje(nombre, puntos);
 		//generarRegistro(nombre, puntos); así guardo los datos historicos en un archivo binario para imprimirlos
                 system("pause");
                     
@@ -156,4 +159,44 @@ void instrucciones(){
     printf ("\n3. Por cada acierto se sumaran 5 puntos y por cada error se restarán 3 puntos. \n\t Si ingresa una palabra que ya había ingresado previamente, se tomará como un error!. ");
     printf ("\n4. Cuando se acaben los intentos , el juego finalizara y obtendra el puntaje final.\n");
     system("pause");
+}
+
+void inicializarLista(){
+	listaPuntajes = NULL;
+}
+
+bool listaVacia(tListaPuntajes *pListaPuntajes ){
+	return pListaPuntajes == NULL;
+}
+
+void insertarPrimerPuntaje (tString pNombre, int pPuntaje){
+	tListaPuntajes *nuevoPuntaje;
+	
+	nuevoPuntaje = (tListaPuntajes*)malloc(sizeof(tListaPuntajes));
+	nuevoPuntaje->infoJugador.nombreJugador = pNombre;
+	nuevoPuntaje->infoJugador.puntaje = pPuntaje;
+	nuevoPuntaje->siguiente = NULL;
+	
+	listaPuntajes = nuevoPuntaje;
+	printf("\nPuntaje insertado en la Lista!\n");
+	
+}
+
+void insertarPuntajeAdelante(tString pNombre, int pPuntaje){
+	tListaPuntajes * nuevoPuntaje;
+	
+	nuevoPuntaje = (tListaPuntajes*)malloc(sizeof(tListaPuntajes));
+	nuevoPuntaje->infoJugador.nombreJugador = pNombre;
+	nuevoPuntaje->infoJugador.puntaje = pPuntaje;
+	nuevoPuntaje->siguiente = listaPuntajes;
+	
+	listaPuntajes = nuevoPuntaje;
+	printf("\nPuntaje insertado en la Lista!\n");
+}
+void insertarPuntaje(tString pNombre, int pPuntaje){
+	if(listaVacia(listaPuntajes)){
+		insertarPrimerPuntaje (pNombre, pPuntaje);
+	}else{
+		insertarPuntajeAdelante(pNombre, pPuntaje);
+	}
 }
