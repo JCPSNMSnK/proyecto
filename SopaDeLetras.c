@@ -7,16 +7,15 @@
 #include "SopaDeLetras.h"
 
 int op, puntos, oportunidades;
-int palabra1=0, palabra2=0, palabra3=0, palabra4=0;//0=disponible||1=ocupada
 
-tString palabraIn;
+tString palabraIn, nombre;
 tVectorStrings vectorRespuestas = {"analisis", "diseno", "codificacion", "compilacion", "mantenimiento", "documentacion"};
 int vectorRespuestasEncontradas[MAX] = {0, 0, 0, 0, 0, 0}; //cuando una palabra sea encontrada, meto 1 como encontrado, 0 no encontrado
 
 void sopaDeLetras(){ //principal donde voy citando 
     do{
         system("cls");
-        printf("¡BIENVENIDO A LA SOPA DE LETRAS!");
+        printf("¡BIENVENIDO A LA SOPA DE LETRAS!\n");
         printf("1- Jugar\n");
         printf("2- Instrucciones\n");
         printf("3- Puntos\n");
@@ -38,6 +37,7 @@ void sopaDeLetras(){ //principal donde voy citando
                 system("cls");
                 printf("Juego acabado!\n");
                 printf("\nTus puntos: %i\n", puntos);
+		//generarNodo(nombre, puntos); void generarNodo(tString , int );
                 system("pause");
                     
             break;
@@ -47,9 +47,9 @@ void sopaDeLetras(){ //principal donde voy citando
                 instrucciones();
             break;
             case 3:
-                //Puntos
+                //Puntos aca deberia imprimir los datos y el puntaje, ejemplo imprimirNodo();
                 system("cls");
-                printf("Puntos\n");
+                printf("\t\tCLASIFICACION DE PUNTAJES: \n");
             	if(puntos!=0){
             		
                     printf("El ultimo puntaje grabado fue de: %i\n", puntos);
@@ -67,9 +67,11 @@ void sopaDeLetras(){ //principal donde voy citando
 } 
 
 void inicializarScore(){//inicia las variables a mostrar del puntaje y oportunidades
+	printf("\nIngrese su nombre: ");
+	scanf("%s", &nombre);
+	
 	oportunidades=6;
-    puntos=0;
-    palabra1=0;palabra2=0;palabra3=0;palabra4=0;
+	puntos=0;
 }
 
 void mostrarSopa(){//imprime la sopa
@@ -110,7 +112,6 @@ void aciertoOError(tString pPalabraIn){//identifica si la palabra ingresada es u
 	
 	if(resultBus){
         actualizarScore; 
-        palabra1=1;
         system("pause");
     }else{
 		printf("\n\nIncorrecto. Ya la escribiste o no es correcta!\n");
