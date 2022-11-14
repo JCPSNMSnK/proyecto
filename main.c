@@ -8,6 +8,7 @@
 
 int opMain; 
 void menuMain();
+void conceptos();
 
 int main(){
 	
@@ -19,7 +20,7 @@ int main(){
 		
 		switch(opMain){
 			case 1:
-				printf("Hola hice un cambio");
+				conceptos();
 				system("pause");
 				break;
 			case 2:
@@ -40,4 +41,16 @@ void menuMain(){
 		printf("\n\t2- Jugar Sopa de Letras");
 		printf("\n\t3- Salir\n");
 		printf("\nIngrese una opcion: ");
+}
+
+void conceptos(){
+	printf("\t\t CICLO DE VIDA DEL SOFTWARE\n\n");
+	printf("El Ciclo de Vida del Software está compuesto por 6 etapas principales: \n");
+	printf("\t 1- Analisis: \n");
+	printf("\t 2- Diseno: \n");
+	printf("\t 3- Codificacion: \n");
+	printf("\t 4- Compilacion: \n");
+	printf("\t 5- Mantenimiento: \n");
+	printf("\t 6- Documentacion: \n");
+	
 }
