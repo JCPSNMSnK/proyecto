@@ -45,7 +45,7 @@ void finalizarProceso();
 //Arbol
 void crearArbolVacio (tArbolPuntaje * );
 bool arbolVacio(tArbolPuntaje * );
-void insertarPuntajeArbol (tArbolPuntaje ** , tDato);
+void insertarPuntajeArbol (tArbolPuntaje ** , tString , int );
 void recorrrerInOrden(tArbolPuntaje * );
 
 #endif
