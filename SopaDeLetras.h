@@ -10,7 +10,7 @@ typedef struct {
   int puntaje;
 } tDato;
 
-typedef struct{
+typedef struct nodo{
   tDato infoJugador;
   struct nodo * siguiente;
 }tListaPuntajes;
@@ -38,7 +38,7 @@ void insertarPuntaje(tString , int );
 
 //Archivos
 void generarRegistro();
-void iniciaProceso();
+void iniciarProceso();
 void grabarRegistroPuntaje(tListaPuntajes * );
 void finalizarProceso();
 
@@ -46,6 +46,6 @@ void finalizarProceso();
 void crearArbolVacio (tArbolPuntaje * );
 bool arbolVacio(tArbolPuntaje * );
 void insertarPuntajeArbol (tArbolPuntaje ** , tString , int );
-void recorrrerInOrden(tArbolPuntaje * );
+void recorrerInOrden(tArbolPuntaje * );
 
 #endif
