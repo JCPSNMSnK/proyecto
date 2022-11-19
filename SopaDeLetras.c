@@ -38,6 +38,7 @@ void sopaDeLetras(){ //principal donde voy citando
                     system("cls");
                     mostrarSopa();
                     aciertoOError(palabraIn);
+                    oportunidades=oportunidades-1;
                 }while(oportunidades!=0);
                 //Mostrar el 'gano!'
                 system("cls");
@@ -58,8 +59,8 @@ void sopaDeLetras(){ //principal donde voy citando
                 //Puntos aca deberia imprimir los datos y el puntaje, ejemplo imprimirArbolDeBusqueda();
                 system("cls");
                 printf("\t\tCLASIFICACION DE PUNTAJES: \n");
-		printf("Nombre: || Puntajes:  \n");
-            	recorrrerInOrden(arbolPuntajes);
+				printf("Nombre: || Puntajes:  \n");
+            	recorrerInOrden(arbolPuntajes);
             break;
         }
     }while(op!=4);
@@ -111,14 +112,16 @@ void aciertoOError(tString pPalabraIn){//identifica si la palabra ingresada es u
 	resultBus = buscarPalabraSecuencial(vectorRespuestas, pPalabraIn);
 	
 	if(resultBus){
+		printf("\n Correcto! Sumas 5 puntos");
         actualizarScore; 
         system("pause");
     }else{
 		printf("\n\nIncorrecto. Ya la escribiste o no es correcta!\n");
-       	oportunidades=oportunidades-1;
         puntos = puntos-3;
 		system("pause");
 	}
+	
+
 }
 
 bool buscarPalabraSecuencial(tVectorStrings pVectorRespuestas, tString pPalabraIn){ //tipo de Busqueda Secuencial
@@ -144,7 +147,6 @@ bool buscarPalabraSecuencial(tVectorStrings pVectorRespuestas, tString pPalabraI
 void actualizarScore (){
 	printf("Palabra encontrada! 5 puntos\n");
 	puntos=puntos+5;
-	oportunidades=oportunidades-1;
 }
 
 void instrucciones(){
@@ -166,10 +168,10 @@ bool listaVacia(tListaPuntajes *pListaPuntajes ){
 }
 
 void insertarPrimerPuntaje (tString pNombre, int pPuntaje){
-	tListaPuntajes *nuevoPuntaje;
+	tListaPuntajes * nuevoPuntaje;
 	
 	nuevoPuntaje = (tListaPuntajes*)malloc(sizeof(tListaPuntajes));
-	nuevoPuntaje->infoJugador.nombreJugador = pNombre;
+	strcpy(nuevoPuntaje->infoJugador.nombreJugador, pNombre);
 	nuevoPuntaje->infoJugador.puntaje = pPuntaje;
 	nuevoPuntaje->siguiente = NULL;
 	
@@ -182,7 +184,7 @@ void insertarPuntajeAdelante(tString pNombre, int pPuntaje){
 	tListaPuntajes * nuevoPuntaje;
 	
 	nuevoPuntaje = (tListaPuntajes*)malloc(sizeof(tListaPuntajes));
-	nuevoPuntaje->infoJugador.nombreJugador = pNombre;
+	strcpy(nuevoPuntaje->infoJugador.nombreJugador, pNombre);
 	nuevoPuntaje->infoJugador.puntaje = pPuntaje;
 	nuevoPuntaje->siguiente = listaPuntajes;
 	
@@ -199,14 +201,14 @@ void insertarPuntaje(tString pNombre, int pPuntaje){
 
 void generarRegistro(){
 	iniciarProceso();
-	grabarRegistroPuntaje();
+	grabarRegistroPuntaje(listaPuntajes);
 	finalizarProceso();
 }
 
 void iniciarProceso(){
 	//se abre un archivo nuevo y se asigna a la variable archivo
 	vf_puntajes = fopen("Puntajes.dat", "wb");
-	printf("\nArchivo de puntajes abierto!\n);
+	printf("\nArchivo de puntajes abierto!\n");
 }
 
 void grabarRegistroPuntaje(tListaPuntajes *pListaPuntajes){
@@ -243,7 +245,7 @@ void insertarPuntajeArbol (tArbolPuntaje **pArbolPuntajes, tString pNombre, int 
 	}
 }
 
-void recorrrerInOrden(tArbolPuntaje *pArbolPuntajes){
+void recorrerInOrden(tArbolPuntaje *pArbolPuntajes){
 	if(pArbolPuntajes != NULL){
 		recorrerInOrden(pArbolPuntajes->hijoIzq);
 		printf("\n %s || %d \n", pArbolPuntajes->datoArPunt.nombreJugador, pArbolPuntajes->datoArPunt.puntaje);
